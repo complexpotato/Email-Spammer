@@ -1,4 +1,7 @@
-import argparse, smtplib, os, sys
+import argparse, smtplib, os, sys, socks, socket
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
 
 
 W = '\033[0m'  #White
@@ -8,32 +11,58 @@ G = '\033[32m' #Green
 
 def main():
 
+    j=0
+
     parser = argparse.ArgumentParser(description='The Ultimate Email Spammer!') # Parameters
     required = parser.add_argument_group('Required Arguments')
-    required.add_argument('-f', '--from '  dest='from')
+    required.add_argument('-f', '--from ',  dest='frommail')
+    required.add_argument('-p', '--passwd', dest='passwd')
     required.add_argument('-t', '--to   ', dest='to'  )
-    required.add_argument('-e'. '--email', dest='email')
-    parser.add_argument('-p', '--proxy', dest='proxy')
+    required.add_argument('-a', '--amount',type=int, dest='amount')
 
 
     args = parser.parse_args()
 
 
-    from = args.from
-    to = args.to
-    email = args.email
-    proxy = args.proxy
+    email_user = args.frommail
+    email_send = args.to
+    amount = args.amount
+    email_password = args.passwd
+
+    os.system("clear && /etc/init.d/tor restart")
+
+    subject = raw_input('Subject : ')
+
+    msg = MIMEMultipart()
+    msg['From'] = email_user
+    msg['To'] = email_send
+    msg['Subject'] = subject
+
+    content = open("contents","r")
+    body = content.readlines()
+    content.close
+
+    print body
+
+    text = msg.as_string()
+
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    server.ehlo()
+    server.starttls()
+    server.login(email_user,email_password)
+
+    while(1):
+
+        j+=1
+
+        server.sendmail(email_user,email_send,text)
+
+        print(" Email sent to {} | {} ".format(email_send,j))
+
+        if j == amount:
+        
+            server.close()
+            break
 
 
-    if proxy == 'y' or proxy == 'Y':
-        proxy = 'y'
-        import socks, socket
-        print("[" + G + " Yes " + W + "] Using Proxy")
-
-    elif proxy == 'n' or proxy == 'N':
-        proxy = 'n'
-        print("[" + R + " No " + W + "] Using Proxy")
-
-    else:
-        print("[" + R + "Error" + W + "] Incorrect Input")
-        exit(1)
+main()
