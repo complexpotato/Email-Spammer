@@ -35,4 +35,5 @@ def main():
         print("[" + R + " No " + W + "] Using Proxy")
 
     else:
-        print("[" + )
+        print("[" + R + "Error" + W + "] Incorrect Input")
+        exit(1)
