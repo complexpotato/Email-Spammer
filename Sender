@@ -1,0 +1,38 @@
+import argparse, smtplib, os, sys
+
+
+W = '\033[0m'  #White
+R = '\033[31m' #Red
+G = '\033[32m' #Green
+
+
+def main():
+
+    parser = argparse.ArgumentParser(description='The Ultimate Email Spammer!') # Parameters
+    required = parser.add_argument_group('Required Arguments')
+    required.add_argument('-f', '--from '  dest='from')
+    required.add_argument('-t', '--to   ', dest='to'  )
+    required.add_argument('-e'. '--email', dest='email')
+    parser.add_argument('-p', '--proxy', dest='proxy')
+
+
+    args = parser.parse_args()
+
+
+    from = args.from
+    to = args.to
+    email = args.email
+    proxy = args.proxy
+
+
+    if proxy == 'y' or proxy == 'Y':
+        proxy = 'y'
+        import socks, socket
+        print("[" + G + " Yes " + W + "] Using Proxy")
+
+    elif proxy == 'n' or proxy == 'N':
+        proxy = 'n'
+        print("[" + R + " No " + W + "] Using Proxy")
+
+    else:
+        print("[" + )
