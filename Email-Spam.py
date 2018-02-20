@@ -1,4 +1,4 @@
-import os, sys, smtplib, getpass, socks, socket
+import os, sys, smtplib, getpass
 
 
 try:
@@ -9,10 +9,6 @@ try:
 
 
     os.system("clear")
-
-    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
-
-    socket.socket = socks.socksocket
 
     server = raw_input ('Mail-Server Gmail/Yahoo: ')
 
@@ -58,7 +54,7 @@ try:
 
             server.sendmail(email_user,email_to,msg)
 
-            print (G + "\rEmail Sent - {}".format(i))
+            print(G + "\rEmail Sent - {}".format(i))
 
             sys.stdout.flush()
 
