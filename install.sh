@@ -1,5 +1,5 @@
-apt-get update -y          # Update
-apt-get autoremove         # Auto Remove
+sudo apt-get update -y          # Update
+sudo apt-get autoremove         # Auto Remove
 
 sudo "apt-get install pip" # Installing Pip
 echo installed pip         # Telling User that installing is done
